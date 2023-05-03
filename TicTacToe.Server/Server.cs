@@ -7,6 +7,7 @@ public class Server
 {
     public IPAddress ipAddress;
     public int port;
+    public static char[,] Area = InitData();
 
     // network layer
     public TcpListener tcpListener;
@@ -21,5 +22,16 @@ public class Server
     {
         tcpListener = new TcpListener(ipAddress, port);
         tcpListener.Start();
+    }
+    private static char[,] InitData()
+    {
+        char symbol = '_';
+        char[,] area = new char[3, 3]
+        {
+            { symbol, symbol, symbol },
+            { symbol, symbol, symbol },
+            { symbol, symbol, symbol },
+        };
+        return area;
     }
 }

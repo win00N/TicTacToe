@@ -1,10 +1,17 @@
 ﻿using System.Net;
 using TicTacToe.Client;
 
-Console.WriteLine("Player");
+var rnd = new Random(Guid.NewGuid().GetHashCode());
+
 Console.Title = "TicTacToe.Client";
 
-Console.WriteLine("Enter name: ");
+var side = rnd.Next(0, 1) == 0 ? "X" : "O";
+Console.WriteLine($"Player {side}");
+
+Console.WriteLine("Welcome player =)\n" +
+    $"Your side is {side}. Its randomly choosing by randomizer");
+Console.WriteLine("To start play enter value like: 0 0");
+
 
 Client client = new Client(IPAddress.Parse("127.0.0.1"), 5000);
 
@@ -22,5 +29,5 @@ while (true)
 
     string messageFromServer = client.reader.ReadLine();
 
-    Console.WriteLine("Server: " + messageFromServer);
+    Console.WriteLine("Another player: " + messageFromServer);
 }

@@ -1,19 +1,17 @@
 ﻿using System.Net.Sockets;
 
-namespace TicTacToe.ClientHandler;
+namespace TicTacToe.Server;
 
 public class ClientHandler
 {
 
     private TcpClient _tcpClient;
 
-
     // write and read messages
     public NetworkStream networkStream;
     public StreamReader reader;
     public StreamWriter writer;
     private int clientId;
-
 
     public ClientHandler(TcpClient tcpClient, int clientId)
     {
@@ -27,7 +25,6 @@ public class ClientHandler
         t.Start();
     }
 
-
     public void Start()
     {
         Console.WriteLine(_tcpClient.Connected);
@@ -35,6 +32,7 @@ public class ClientHandler
 
         reader = new StreamReader(networkStream);
         writer = new StreamWriter(networkStream);
+
 
         while (true)
         {
@@ -46,9 +44,24 @@ public class ClientHandler
 
                 Console.WriteLine($"Please type message for client {clientId}:");
 
-                string messageToClient = Console.ReadLine();
 
-                writer.WriteLine(messageToClient);
+                var result = messageFromClient.Split(' ');
+
+                if (Server.Area[int.Parse(result[0]), int.Parse(result[1])].Equals('X'))
+                {
+                    Console.WriteLine("It's already taken. Choose another location =)");
+                    continue;
+                }
+
+                Server.Area[int.Parse(result[0]), int.Parse(result[1])] = 'X';
+
+
+                string messageToClient = "Waiting player choose...";
+                
+
+
+
+                writer.WriteLine("Your");
                 writer.Flush();
             }
         }

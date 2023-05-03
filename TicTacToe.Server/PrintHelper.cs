@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.CMD;
+﻿namespace TicTacToe.Server;
 
 public static class PrintHelper
 {
